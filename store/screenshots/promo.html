@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>LinguaFill Promo Tile</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(80% 90% at 12% 15%, rgba(124, 92, 255, 0.35), transparent 65%),
+        radial-gradient(75% 80% at 90% 85%, rgba(6, 182, 212, 0.28), transparent 65%),
+        linear-gradient(135deg, #070a14 0%, #101735 55%, #090e1f 100%);
+      color: #f8fafc;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Small tile: 440x280 */
+    body.small {
+      width: 440px;
+      height: 280px;
+      padding: 24px 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .s-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .s-logo {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      box-shadow: 0 10px 28px rgba(124, 92, 255, 0.45);
+    }
+    .s-brand h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 850;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #a78bfa 0%, #60a5fa 50%, #22d3ee 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .s-brand p {
+      margin: 2px 0 0;
+      font-size: 12.5px;
+      color: #cbd5e1;
+      font-weight: 550;
+    }
+    .s-headline {
+      font-size: 19px;
+      font-weight: 780;
+      line-height: 1.28;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+    }
+    .s-headline span { color: #67e8f9; }
+    .s-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+    .s-pill {
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(139, 108, 255, 0.4);
+      font-size: 11px;
+      font-weight: 650;
+      color: #e2e8f0;
+    }
+
+    /* Marquee tile: 1400x560 */
+    body.marquee {
+      width: 1400px;
+      height: 560px;
+      padding: 48px 64px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 44px;
+      align-items: center;
+    }
+    .m-left {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .m-brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .m-brand img {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      box-shadow: 0 12px 34px rgba(124, 92, 255, 0.5);
+    }
+    .m-badge {
+      display: inline-flex;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(124, 92, 255, 0.2);
+      border: 1px solid rgba(139, 108, 255, 0.45);
+      color: #ddd6fe;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .m-title {
+      margin: 0;
+      font-size: 46px;
+      font-weight: 850;
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+    }
+    .m-title span {
+      background: linear-gradient(135deg, #a78bfa 0%, #60a5fa 50%, #22d3ee 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .m-sub {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.5;
+      color: #94a3b8;
+      max-width: 620px;
+    }
+    .m-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .m-tag {
+      padding: 8px 14px;
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.78);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      font-size: 13.5px;
+      font-weight: 650;
+      color: #e2e8f0;
+    }
+
+    .m-card {
+      background: rgba(19, 28, 51, 0.92);
+      border: 1px solid rgba(139, 108, 255, 0.4);
+      border-radius: 20px;
+      padding: 24px 26px;
+      box-shadow: 0 28px 64px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .m-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+    }
+    .m-card-head strong { font-size: 15px; color: #fff; }
+    .m-status {
+      padding: 4px 11px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.16);
+      border: 1px solid rgba(16, 185, 129, 0.45);
+      color: #6ee7b7;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .m-row {
+      display: grid;
+      grid-template-columns: 145px 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 13px;
+      border-radius: 10px;
+      background: #0a1020;
+      border: 1px solid #283655;
+      outline: 2px solid rgba(124, 92, 255, 0.75);
+      font-size: 13.5px;
+    }
+    .m-row-key { color: #94a3b8; font-weight: 600; font-size: 12.5px; }
+    .m-row-val { color: #f8fafc; font-weight: 600; font-family: "SF Mono", Menlo, monospace; font-size: 13px; }
+    .m-row-tag {
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: rgba(124, 92, 255, 0.2);
+      color: #c4b5fd;
+      font-size: 11px;
+      font-weight: 650;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    const kind = new URLSearchParams(location.search).get('kind') || 'small';
+    document.body.className = kind;
+
+    if (kind === 'small') {
+      document.body.innerHTML = `
+        <div class="s-top">
+          <img class="s-logo" src="../../assets/icons/icon128.png" alt="">
+          <div class="s-brand">
+            <h1>LinguaFill</h1>
+            <p>Localized Form Filler</p>
+          </div>
+        </div>
+        <div class="s-headline">
+          Fill forms with coherent <span>TR · EN · DE</span> personas &amp; valid checksums in 1 click.
+        </div>
+        <div class="s-pills">
+          <span class="s-pill">🇹🇷 TCKN · VKN · IBAN</span>
+          <span class="s-pill">⚡ React / Vue / Angular</span>
+          <span class="s-pill">🔒 100% Offline</span>
+        </div>
+      `;
+    } else {
+      document.body.innerHTML = `
+        <div class="m-left">
+          <div class="m-brand">
+            <img src="../../assets/icons/icon128.png" alt="">
+            <span class="m-badge">⚡ LinguaFill — Localized Form Filler for Chrome</span>
+          </div>
+          <h1 class="m-title">Instant, coherent mock data <span>tailored to your language.</span></h1>
+          <p class="m-sub">
+            Generates internally consistent personas with checksum-valid IDs, IBANs, test cards, and cascading dropdowns — built for React, Vue, Angular, and native HTML forms.
+          </p>
+          <div class="m-tags">
+            <span class="m-tag">🇹🇷 Türkçe · 🇺🇸 English · 🇩🇪 Deutsch</span>
+            <span class="m-tag">🆔 Valid TCKN, VKN, SSN &amp; IBAN</span>
+            <span class="m-tag">🗺️ Cascading İl → İlçe Selects</span>
+            <span class="m-tag">🔒 Zero Network Requests</span>
+          </div>
+        </div>
+        <div class="m-card">
+          <div class="m-card-head">
+            <strong>Sample Coherent Fill (🇹🇷 Türkçe)</strong>
+            <span class="m-status">✓ 14 Fields Filled</span>
+          </div>
+          <div class="m-row"><span class="m-row-key">Full Name</span><span class="m-row-val">Elif Kaya (Kadın)</span><span class="m-row-tag">PERSONA</span></div>
+          <div class="m-row"><span class="m-row-key">Email &amp; Phone</span><span class="m-row-val">elif.kaya@gmail.com · 0532 418 27 90</span><span class="m-row-tag">COHERENT</span></div>
+          <div class="m-row"><span class="m-row-key">T.C. Kimlik &amp; VKN</span><span class="m-row-val">38462915748 · 4928173650</span><span class="m-row-tag">CHECKSUM</span></div>
+          <div class="m-row"><span class="m-row-key">IBAN</span><span class="m-row-val">TR64 0006 2001 4829 3746 1928 34</span><span class="m-row-tag">MOD-97</span></div>
+          <div class="m-row"><span class="m-row-key">City → District</span><span class="m-row-val">İstanbul → Kadıköy (34710)</span><span class="m-row-tag">CASCADING</span></div>
+          <div class="m-row"><span class="m-row-key">Test Card</span><span class="m-row-val">4111 1111 1111 1111 · 08/29 · 482</span><span class="m-row-tag">LUHN</span></div>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

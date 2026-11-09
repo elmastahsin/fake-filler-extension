@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="LinguaFill settings: choose locale, toggle fields and fill forms with localized mock data.">
+  <title>LinguaFill</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="app" id="app">
+    <header class="header">
+      <img class="header__logo" src="../../assets/icons/icon48.png" alt="" width="36" height="36">
+      <div class="header__brand">
+        <h1>LinguaFill</h1>
+        <p>Localized, context-aware form filler</p>
+      </div>
+      <span class="pill" id="active-locale-pill" title="Active locale">—</span>
+    </header>
+
+    <button type="button" class="fill-button" id="fill-button">
+      <span class="fill-button__shine" aria-hidden="true"></span>
+      <svg class="fill-button__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>
+      <span class="fill-button__label" id="fill-button-label">Fill this page</span>
+      <kbd class="fill-button__kbd" id="fill-shortcut-hint" hidden></kbd>
+    </button>
+
+    <div class="status" id="status" role="status" aria-live="polite" hidden>
+      <span class="status__icon" id="status-icon" aria-hidden="true"></span>
+      <div class="status__body">
+        <strong id="status-title"></strong>
+        <span id="status-detail"></span>
+      </div>
+    </div>
+
+    <section class="card" aria-labelledby="locale-heading">
+      <div class="card__head">
+        <h2 id="locale-heading">Data language</h2>
+        <span class="card__hint" id="detected-locale"></span>
+      </div>
+      <div class="segmented" id="locale-options" role="radiogroup" aria-labelledby="locale-heading"></div>
+    </section>
+
+    <section class="card" aria-labelledby="preview-heading">
+      <div class="card__head">
+        <h2 id="preview-heading">Sample persona</h2>
+        <button type="button" class="icon-button" id="shuffle-button" title="Generate another persona" aria-label="Generate another persona">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+        </button>
+      </div>
+      <dl class="persona" id="persona"></dl>
+    </section>
+
+    <section class="card" aria-labelledby="fields-heading">
+      <div class="card__head">
+        <h2 id="fields-heading">Fields</h2>
+        <div class="card__actions">
+          <button type="button" class="text-button" id="fields-all">All</button>
+          <button type="button" class="text-button" id="fields-none">None</button>
+        </div>
+      </div>
+      <div class="chips" id="field-toggles"></div>
+    </section>
+
+    <section class="card" aria-labelledby="behavior-heading">
+      <div class="card__head"><h2 id="behavior-heading">Behavior</h2></div>
+      <div class="switches" id="behavior-switches"></div>
+    </section>
+
+    <section class="card card--row" aria-labelledby="shortcut-heading">
+      <div>
+        <h2 id="shortcut-heading">Keyboard shortcut</h2>
+        <kbd class="shortcut" id="shortcut-value">Not set</kbd>
+      </div>
+      <button type="button" class="ghost-button" id="shortcut-button">Customize</button>
+    </section>
+
+    <footer class="footer">
+      <span id="version"></span>
+      <span class="saved" id="saved-indicator" aria-live="polite">Saved</span>
+    </footer>
+  </main>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

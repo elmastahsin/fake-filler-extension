@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LinguaFill Test Formu (Demo)</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --text-dim: #94a3b8;
+      --primary: #7c5cff;
+      --primary-hover: #6a46f6;
+    }
+    body {
+      margin: 0;
+      padding: 32px 16px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+    .container {
+      width: 100%;
+      max-width: 680px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    h1 {
+      margin-top: 0;
+      font-size: 24px;
+      background: linear-gradient(135deg, #7c5cff, #22d3ee);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p {
+      color: var(--text-dim);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .field.full {
+      grid-column: 1 / -1;
+    }
+    label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    input, select, textarea {
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #0b1329;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(124, 92, 255, 0.25);
+    }
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      background: rgba(124, 92, 255, 0.15);
+      border: 1px solid rgba(124, 92, 255, 0.4);
+      color: #c4b5fd;
+      border-radius: 999px;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+    .log-box {
+      margin-top: 16px;
+      padding: 12px;
+      background: #020617;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 12px;
+      color: #38bdf8;
+      max-height: 120px;
+      overflow-y: auto;
+    }
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    button.submit-btn {
+      padding: 10px 20px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button.submit-btn:hover {
+      background: var(--primary-hover);
+    }
+    button.reset-btn {
+      padding: 10px 20px;
+      background: transparent;
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <span class="badge">LinguaFill Demo & Test</span>
+    <h1>Kayıt / Başvuru Formu</h1>
+    <p>Bu form LinguaFill uzantısının Türkçe ve İngilizce akıllı alan algılama, reaktif event tetikleme ve tutarlı sahte veri oluşturma yeteneklerini test etmek için hazırlanmıştır.</p>
+
+    <form id="test-form">
+      <div class="grid">
+        <div class="field">
+          <label for="ad">Adınız</label>
+          <input type="text" id="ad" name="ad" placeholder="Örn: Ahmet" autocomplete="given-name" required>
+        </div>
+
+        <div class="field">
+          <label for="soyad">Soyadınız</label>
+          <input type="text" id="soyad" name="soyad" placeholder="Örn: Yılmaz" autocomplete="family-name" required>
+        </div>
+
+        <div class="field">
+          <label for="email">E-Posta Adresi</label>
+          <input type="email" id="email" name="eposta" placeholder="ad@sirket.com" required>
+        </div>
+
+        <div class="field">
+          <label for="gsm">Cep Telefonu</label>
+          <input type="tel" id="gsm" name="telefon" placeholder="05xx xxx xx xx" required>
+        </div>
+
+        <div class="field">
+          <label for="sifre">Şifre</label>
+          <input type="password" id="sifre" name="sifre" required>
+        </div>
+
+        <div class="field">
+          <label for="sifre-tekrar">Şifre Tekrar</label>
+          <input type="password" id="sifre-tekrar" name="sifre_onay" required>
+        </div>
+
+        <div class="field">
+          <label for="dogum">Doğum Tarihi</label>
+          <input type="date" id="dogum" name="dogum_tarihi">
+        </div>
+
+        <div class="field">
+          <label for="sehir">Şehir (İl)</label>
+          <select id="sehir" name="sehir" required>
+            <option value="">Lütfen şehir seçiniz</option>
+            <option value="İstanbul">İstanbul</option>
+            <option value="Ankara">Ankara</option>
+            <option value="İzmir">İzmir</option>
+            <option value="Bursa">Bursa</option>
+            <option value="Antalya">Antalya</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="ilce">İlçe (Şehir seçilince yüklenir)</label>
+          <select id="ilce" name="ilce" disabled required>
+            <option value="">Önce şehir seçiniz</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="tckn">T.C. Kimlik No</label>
+          <input type="text" id="tckn" name="tc_kimlik_no" maxlength="11" pattern="[1-9][0-9]{10}" placeholder="11 haneli TCKN" required>
+        </div>
+
+        <div class="field">
+          <label for="iban">IBAN</label>
+          <input type="text" id="iban" name="iban" placeholder="TR00 0000 0000 0000 0000 0000 00">
+        </div>
+
+        <div class="field">
+          <label for="vkn">Vergi Kimlik No (VKN)</label>
+          <input type="text" id="vkn" name="vergi_no" maxlength="10" pattern="[0-9]{10}">
+        </div>
+
+        <div class="field">
+          <label for="meslek">Meslek / Unvan</label>
+          <input type="text" id="meslek" name="unvan" placeholder="Örn: Yazılım Geliştirici">
+        </div>
+
+        <div class="field">
+          <label for="posta-kodu">Posta Kodu</label>
+          <input type="text" id="posta-kodu" name="posta_kodu" maxlength="5">
+        </div>
+
+        <div class="field">
+          <label for="sirket">Şirket / Kurum Adı</label>
+          <input type="text" id="sirket" name="firma">
+        </div>
+
+        <div class="field">
+          <label for="kart-no">Kart Numarası (Test)</label>
+          <input type="text" id="kart-no" name="card_number" autocomplete="cc-number" placeholder="0000 0000 0000 0000">
+        </div>
+
+        <div class="field">
+          <label for="skt">Son Kullanma Tarihi &amp; CVV</label>
+          <div style="display:flex; gap:8px;">
+            <input type="text" id="skt" name="son_kullanma" placeholder="AA/YY" maxlength="5" style="flex:1">
+            <input type="text" id="cvv" name="cvv" placeholder="CVV" maxlength="3" style="width:80px">
+          </div>
+        </div>
+
+        <fieldset class="field full" style="border:1px solid var(--border); border-radius:8px; padding:12px;">
+          <legend style="padding:0 6px; font-size:13px; font-weight:600;">Cinsiyet</legend>
+          <div style="display:flex; gap:20px;">
+            <label><input type="radio" name="cinsiyet" value="kadin" required> Kadın</label>
+            <label><input type="radio" name="cinsiyet" value="erkek" required> Erkek</label>
+            <label><input type="radio" name="cinsiyet" value="diger"> Belirtmek istemiyorum</label>
+          </div>
+        </fieldset>
+
+        <div class="field full">
+          <label for="adres">Açık Adres</label>
+          <input type="text" id="adres" name="adres_satiri" placeholder="Mahalle, sokak, no...">
+        </div>
+
+        <div class="field full">
+          <label for="mesaj">Açıklama / Notlar</label>
+          <textarea id="mesaj" name="aciklama" placeholder="Detaylı bilgi..."></textarea>
+        </div>
+
+        <div class="field full">
+          <label id="editor-label">Zengin Metin Editörü (contenteditable)</label>
+          <div contenteditable="true" role="textbox" aria-labelledby="editor-label" style="min-height:56px; padding:10px 14px; border-radius:8px; border:1px solid var(--border); background:#0b1329;"></div>
+        </div>
+
+        <div class="field full" style="gap:10px;">
+          <label><input type="checkbox" id="kvkk" name="kvkk_onay" required> KVKK Aydınlatma Metni'ni ve Kullanıcı Sözleşmesi'ni okudum, onaylıyorum.</label>
+          <label><input type="checkbox" id="bulten" name="kampanya_izin"> Kampanya ve bülten e-postaları almak istiyorum (opsiyonel).</label>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button type="submit" class="submit-btn">Kaydet</button>
+        <button type="reset" class="reset-btn" id="reset-btn">Temizle</button>
+      </div>
+    </form>
+
+    <div class="log-box" id="event-log">
+      Tetiklenen input/change eventleri burada listelenecektir...
+    </div>
+  </div>
+
+  <script>
+    // Event logger to verify that frameworks (React/Vue/Angular) receive input and change events
+    const form = document.getElementById('test-form');
+    const logBox = document.getElementById('event-log');
+    let eventCount = 0;
+
+    function logEvent(e) {
+      eventCount++;
+      const time = new Date().toLocaleTimeString();
+      const el = e.target;
+      const val = el.type === 'password' ? '••••••••' : el.value;
+      logBox.innerText = `[${time}] #${eventCount} Event "${e.type}" -> ${el.name || el.id} = "${val.slice(0, 30)}"\n` + logBox.innerText.slice(0, 500);
+    }
+
+    const DISTRICTS = {
+      'İstanbul': ['Kadıköy', 'Beşiktaş', 'Üsküdar', 'Şişli', 'Bakırköy', 'Ataşehir', 'Maltepe', 'Sarıyer', 'Beyoğlu', 'Fatih'],
+      'Ankara': ['Çankaya', 'Keçiören', 'Yenimahalle', 'Mamak', 'Etimesgut', 'Altındağ'],
+      'İzmir': ['Karşıyaka', 'Bornova', 'Konak', 'Buca', 'Çiğli', 'Bayraklı'],
+      'Bursa': ['Nilüfer', 'Osmangazi', 'Yıldırım', 'Mudanya'],
+      'Antalya': ['Muratpaşa', 'Konyaaltı', 'Kepez', 'Alanya'],
+    };
+    document.getElementById('sehir').addEventListener('change', (e) => {
+      const ilce = document.getElementById('ilce');
+      const list = DISTRICTS[e.target.value] || [];
+      setTimeout(() => {
+        ilce.innerHTML = '<option value="">İlçe seçiniz</option>' + list.map((d) => `<option value="${d}">${d}</option>`).join('');
+        ilce.disabled = list.length === 0;
+      }, 40);
+    });
+
+    form.querySelectorAll('input, select, textarea').forEach(el => {
+      el.addEventListener('input', logEvent);
+      el.addEventListener('change', logEvent);
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Form başarıyla gönderildi! Tüm alanlar doludur.');
+    });
+  </script>
+</body>
+</html>

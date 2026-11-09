@@ -1,0 +1,10 @@
+{
+  "name": "linguafill-extension",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Localized context-aware form filler Chrome Extension",
+  "scripts": {
+    "test": "node test/unit.test.js",
+    "pack": "bash scripts/package.sh"
+  }
+}

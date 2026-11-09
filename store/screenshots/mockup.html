@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>LinguaFill — Chrome Web Store Screenshot</title>
+  <link rel="stylesheet" href="../../src/popup/popup.css">
+  <style>
+    html, body {
+      width: 1280px;
+      height: 800px;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(900px 520px at 14% 12%, rgba(124, 92, 255, 0.28), transparent 65%),
+        radial-gradient(820px 500px at 88% 85%, rgba(34, 211, 238, 0.22), transparent 65%),
+        linear-gradient(145deg, #070913 0%, #0d1226 55%, #090d1c 100%);
+      color: #f8fafc;
+    }
+
+    .stage {
+      position: relative;
+      width: 1280px;
+      height: 800px;
+      padding: 28px 38px 34px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* Top marketing banner */
+    .hero-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .hero-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 13px;
+      border-radius: 999px;
+      background: rgba(124, 92, 255, 0.18);
+      border: 1px solid rgba(139, 108, 255, 0.45);
+      color: #ddd6fe;
+      font-size: 12.5px;
+      font-weight: 650;
+      letter-spacing: 0.02em;
+    }
+    .hero-title {
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin: 0;
+      color: #ffffff;
+    }
+    .hero-title span {
+      background: linear-gradient(135deg, #a78bfa 0%, #60a5fa 50%, #22d3ee 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero-pills {
+      display: flex;
+      gap: 10px;
+    }
+    .hero-pill {
+      padding: 7px 13px;
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.78);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .hero-pill kbd {
+      padding: 2px 6px;
+      border-radius: 5px;
+      background: rgba(124, 92, 255, 0.24);
+      border: 1px solid rgba(124, 92, 255, 0.45);
+      color: #e9d5ff;
+      font-family: var(--mono);
+      font-size: 11px;
+    }
+
+    /* Browser frame */
+    .browser {
+      flex: 1;
+      min-height: 0;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      background: #0c1222;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.65);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .browser-bar {
+      height: 46px;
+      padding: 0 16px;
+      background: #11182d;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .dots { display: flex; gap: 7px; }
+    .dot { width: 11px; height: 11px; border-radius: 50%; }
+    .dot--r { background: #fb7185; }
+    .dot--y { background: #fbbf24; }
+    .dot--g { background: #34d399; }
+
+    .url-bar {
+      flex: 1;
+      height: 30px;
+      padding: 0 14px;
+      border-radius: 8px;
+      background: #090e1c;
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+    .url-bar strong { color: #e2e8f0; font-weight: 600; }
+
+    .toolbar-ext {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .ext-btn {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 11px 5px 7px;
+      border-radius: 9px;
+      background: rgba(124, 92, 255, 0.2);
+      border: 1px solid rgba(124, 92, 255, 0.55);
+      font-size: 12px;
+      font-weight: 650;
+      color: #ede9fe;
+    }
+    .ext-btn img { width: 20px; height: 20px; border-radius: 5px; }
+    .ext-badge {
+      padding: 1px 6px;
+      border-radius: 999px;
+      background: #7c5cff;
+      color: #fff;
+      font-size: 10.5px;
+      font-weight: 800;
+    }
+
+    /* Page canvas inside browser */
+    .viewport {
+      flex: 1;
+      position: relative;
+      padding: 24px 30px;
+      background:
+        radial-gradient(600px 320px at 25% 15%, rgba(124, 92, 255, 0.08), transparent 70%),
+        #0b1120;
+      display: flex;
+      gap: 26px;
+      align-items: flex-start;
+    }
+
+    /* Host page form card */
+    .page-card {
+      width: 745px;
+      background: #131c33;
+      border: 1px solid #263454;
+      border-radius: 16px;
+      padding: 22px 24px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+    }
+    .page-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .page-head h2 {
+      font-size: 18px;
+      font-weight: 750;
+      color: #f8fafc;
+      margin: 0;
+    }
+    .page-head p {
+      margin: 3px 0 0;
+      font-size: 12.5px;
+      color: #94a3b8;
+    }
+    .coherent-tag {
+      padding: 5px 11px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.14);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #6ee7b7;
+      font-size: 11.5px;
+      font-weight: 650;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px 14px;
+    }
+    .f-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .f-group.span-2 { grid-column: 1 / -1; }
+    .f-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 650;
+      color: #cbd5e1;
+    }
+    .f-chip {
+      font-size: 9.5px;
+      font-family: var(--mono);
+      padding: 1px 6px;
+      border-radius: 4px;
+      background: rgba(124, 92, 255, 0.18);
+      color: #c4b5fd;
+      border: 1px solid rgba(124, 92, 255, 0.35);
+    }
+    .f-input {
+      height: 31px;
+      padding: 0 11px;
+      border-radius: 7px;
+      background: #0a1020;
+      border: 1px solid #334155;
+      outline: 2px solid rgba(124, 92, 255, 0.88);
+      outline-offset: 1px;
+      color: #f8fafc;
+      font-size: 12.5px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .f-input.mono { font-family: var(--mono); font-size: 12px; }
+    .f-check {
+      color: #34d399;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .f-checks-row {
+      grid-column: 1 / -1;
+      display: flex;
+      gap: 18px;
+      padding: 10px 12px;
+      border-radius: 9px;
+      background: #0a1020;
+      border: 1px solid #263454;
+      outline: 2px solid rgba(124, 92, 255, 0.75);
+      outline-offset: 1px;
+      font-size: 12px;
+      color: #e2e8f0;
+      align-items: center;
+    }
+    .box-checked, .box-unchecked {
+      display: inline-grid;
+      place-items: center;
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      margin-right: 6px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .box-checked { background: #7c5cff; color: #fff; }
+    .box-unchecked { border: 1.5px solid #475569; color: transparent; }
+
+    /* Anchored popup replica using real popup.css classes */
+    .popup-shell {
+      width: 378px;
+      border-radius: 16px;
+      border: 1px solid rgba(139, 108, 255, 0.42);
+      background:
+        radial-gradient(120% 60% at 0% 0%, hsl(252 90% 55% / 0.24), transparent 60%),
+        radial-gradient(90% 50% at 100% 10%, hsl(188 90% 50% / 0.16), transparent 60%),
+        hsl(245 30% 7%);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+    }
+    .popup-shell .app {
+      animation: none;
+      padding: 14px 15px;
+      gap: 10px;
+    }
+    .popup-shell .fill-button__shine { display: none; }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <div class="hero-bar">
+      <div class="hero-left">
+        <span class="hero-badge" id="hero-badge">⚡ 1-Click Localized Form Filler</span>
+        <h1 class="hero-title" id="hero-title">Coherent personas &amp; <span>checksum-valid IDs</span> in one click</h1>
+      </div>
+      <div class="hero-pills">
+        <div class="hero-pill">🇹🇷 Türkçe · 🇺🇸 English · 🇩🇪 Deutsch</div>
+        <div class="hero-pill">Shortcut <kbd>Alt+Shift+F</kbd></div>
+        <div class="hero-pill">🔒 100% Offline &amp; Zero Tracking</div>
+      </div>
+    </div>
+
+    <div class="browser">
+      <div class="browser-bar">
+        <div class="dots">
+          <span class="dot dot--r"></span>
+          <span class="dot dot--y"></span>
+          <span class="dot dot--g"></span>
+        </div>
+        <div class="url-bar">
+          <span>🔒</span>
+          <strong id="url-host">app.acme-portal.com</strong>
+          <span id="url-path">/onboarding/application</span>
+        </div>
+        <div class="toolbar-ext">
+          <div class="ext-btn">
+            <img src="../../assets/icons/icon48.png" alt="">
+            <span>LinguaFill</span>
+            <span class="ext-badge" id="badge-count">14</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="viewport">
+        <!-- Left: Host web form filled by LinguaFill -->
+        <div class="page-card" id="page-card"></div>
+
+        <!-- Right: Real LinguaFill popup UI -->
+        <div class="popup-shell" id="popup-shell"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const scene = params.get('scene') || '1';
+
+    const pageCard = document.getElementById('page-card');
+    const popupShell = document.getElementById('popup-shell');
+
+    if (scene === '1') {
+      pageCard.innerHTML = `
+        <div class="page-head">
+          <div>
+            <h2>Kurumsal Başvuru &amp; Ödeme Formu</h2>
+            <p>All fields filled from a single consistent Turkish persona — including cascading İl → İlçe &amp; checksums</p>
+          </div>
+          <span class="coherent-tag">✓ 14 / 14 Validated</span>
+        </div>
+        <div class="form-grid">
+          <div class="f-group">
+            <span class="f-label">Adınız <span class="f-chip">FIRST_NAME</span></span>
+            <div class="f-input"><span>Elif</span><span class="f-check">✓</span></div>
+          </div>
+          <div class="f-group">
+            <span class="f-label">Soyadınız <span class="f-chip">LAST_NAME</span></span>
+            <div class="f-input"><span>Kaya</span><span class="f-check">✓</span></div>
+          </div>
+          <div class="f-group">
+            <span class="f-label">E-Posta Adresi <span class="f-chip">EMAIL</span></span>
+            <div class="f-input mono"><span>elif.kaya@gmail.com</span><span class="f-check">✓</span></div>
+          </div>
+          <div class="f-group">
+            <span class="f-label">Cep Telefonu <span class="f-chip">PHONE</span></span>
+            <div class="f-input mono"><span>0532 418 27 90</span><span class="f-check">✓</span></div>
+          </div>
+          <div class="f-group">
+            <span class="f-label">T.C. Kimlik No <span class="f-chip">NATIONAL_ID · Checksum</span></span>
+            <div class="f-input mono"><span>38462915748</span><span class="f-check">✓</span></div>
+          </div>
+          <div class="f-group">
+            <span class="f-label">Vergi Kimlik No (VKN) <span class="f-chip">TAX_ID · Checksum</span></span>
+            <div class="f-input mono"><span>4928173650</span><span class="f-check">✓</span></div>
+          </div>
+          <div class="f-group">
+            <span class="f-label">Şehir (İl) <span class="f-chip">CITY · Select</span></span>
+            <div class="f-input"><span>İstanbul ▾</span><span class="f-check">✓</span></div>
+          </div>
+          <div class="f-group">
+            <span class="f-label">İlçe (Dinamik Yüklendi) <span class="f-chip">DISTRICT · Cascading</span></span>
+            <div class="f-input"><span>Kadıköy ▾</span><span class="f-check">✓</span></div>
+          </div>
+          <div class="f-group span-2">
+            <span class="f-label">IBAN <span class="f-chip">IBAN · ISO 13616 Mod-97</span></span>
+            <div class="f-input mono"><span>TR64 0006 2001 4829 3746 1928 34</span><span class="f-check">✓</span></div>
+          </div>
+          <div class="f-group">
+            <span class="f-label">Kredi Kartı (Test) <span class="f-chip">CREDIT_CARD · Luhn</span></span>
+            <div class="f-input mono"><span>4111 1111 1111 1111</span><span class="f-check">✓</span></div>
+          </div>
+          <div class="f-group">
+            <span class="f-label">Son Kullanma &amp; CVV <span class="f-chip">CARD_EXPIRY · CVV</span></span>
+            <div class="f-input mono"><span>08/29 &nbsp;·&nbsp; 482</span><span class="f-check">✓</span></div>
+          </div>
+          <div class="f-group span-2">
+            <span class="f-label">Açık Adres <span class="f-chip">ADDRESS</span></span>
+            <div class="f-input"><span>Bahçelievler Mah. Bağdat Cad. No: 42 D: 8, 34710 Kadıköy/İstanbul</span><span class="f-check">✓</span></div>
+          </div>
+          <div class="f-checks-row">
+            <span style="display:flex;align-items:center;"><span class="box-checked">✓</span> <strong>KVKK &amp; Kullanıcı Sözleşmesi</strong> (Zorunlu onay işaretlendi)</span>
+            <span style="display:flex;align-items:center;color:#94a3b8;"><span class="box-unchecked"></span> Kampanya / Bülten (İsteğe bağlı — boş bırakıldı)</span>
+          </div>
+        </div>
+      `;
+
+      popupShell.innerHTML = `
+        <main class="app">
+          <header class="header">
+            <img class="header__logo" src="../../assets/icons/icon48.png" alt="" width="34" height="34">
+            <div class="header__brand">
+              <h1>LinguaFill</h1>
+              <p>Localized, context-aware form filler</p>
+            </div>
+            <span class="pill">🇹🇷 TR</span>
+          </header>
+
+          <button type="button" class="fill-button">
+            <svg class="fill-button__icon" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>
+            <span class="fill-button__label">Fill this page</span>
+            <kbd class="fill-button__kbd">Alt+Shift+F</kbd>
+          </button>
+
+          <div class="status status--success">
+            <span class="status__icon">✓</span>
+            <div class="status__body">
+              <strong>Filled 14 fields in 🇹🇷 Türkçe</strong>
+              <span>2 name · 1 national id · 1 iban · 1 district</span>
+            </div>
+          </div>
+
+          <section class="card">
+            <div class="card__head">
+              <h2>Data language</h2>
+              <span class="card__hint">Browser: 🇹🇷 Türkçe</span>
+            </div>
+            <div class="segmented">
+              <button class="segmented__option" aria-checked="true"><span class="segmented__flag">🌐</span><span class="segmented__label">Auto</span></button>
+              <button class="segmented__option" aria-checked="false"><span class="segmented__flag">🇹🇷</span><span class="segmented__label">Türkçe</span></button>
+              <button class="segmented__option" aria-checked="false"><span class="segmented__flag">🇺🇸</span><span class="segmented__label">English</span></button>
+              <button class="segmented__option" aria-checked="false"><span class="segmented__flag">🇩🇪</span><span class="segmented__label">Deutsch</span></button>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card__head">
+              <h2>Sample persona</h2>
+              <span class="card__hint">Coherent identity</span>
+            </div>
+            <dl class="persona">
+              <dt>Name</dt><dd>Elif Kaya (Kadın)</dd>
+              <dt>Email</dt><dd class="mono">elif.kaya@gmail.com</dd>
+              <dt>Phone</dt><dd class="mono">0532 418 27 90</dd>
+              <dt>National ID</dt><dd class="mono">38462915748</dd>
+              <dt>IBAN</dt><dd class="mono">TR64 0006 2001 4829 3746 1928 34</dd>
+              <dt>Address</dt><dd>Bahçelievler Mah. Bağdat Cad. No: 42, Kadıköy/İstanbul</dd>
+              <dt>Company</dt><dd>Anadolu Yazılım A.Ş. — Yazılım Geliştirici</dd>
+            </dl>
+          </section>
+        </main>
+      `;
+    } else {
+      document.getElementById('hero-badge').textContent = '🎛️ Granular Control & SPA Framework Ready';
+      document.getElementById('hero-title').innerHTML = 'Works with <span>React, Vue, Angular</span>, custom dropdowns &amp; input masks';
+      document.getElementById('url-host').textContent = 'console.cloud-workspace.io';
+      document.getElementById('url-path').textContent = '/team/member-profile';
+      document.getElementById('badge-count').textContent = '12';
+
+      pageCard.innerHTML = `
+        <div class="page-head">
+          <div>
+            <h2>Team Member &amp; Billing Setup (React + Custom Select)</h2>
+            <p>Dispatches native value-setter + InputEvent/FocusEvent sequences so SPA state updates cleanly</p>
+          </div>
+          <span class="coherent-tag">✓ React / Vue / Angular</span>
+        </div>
+        <div class="form-grid">
+          <div class="f-group">
+            <span class="f-label">First Name <span class="f-chip">given-name</span></span>
+            <div class="f-input"><span>Olivia</span><span class="f-check">✓</span></div>
+          </div>
+          <div class="f-group">
+            <span class="f-label">Last Name <span class="f-chip">family-name</span></span>
+            <div class="f-input"><span>Carter</span><span class="f-check">✓</span></div>
+          </div>
+          <div class="f-group">
+            <span class="f-label">Work Email (Safe RFC 2606) <span class="f-chip">EMAIL</span></span>
+            <div class="f-input mono"><span>olivia.carter@example.com</span><span class="f-check">✓</span></div>
+          </div>
+          <div class="f-group">
+            <span class="f-label">Phone (NANP Area Matched) <span class="f-chip">PHONE</span></span>
+            <div class="f-input mono"><span>(512) 482-9104</span><span class="f-check">✓</span></div>
+          </div>
+          <div class="f-group">
+            <span class="f-label">Organization <span class="f-chip">COMPANY</span></span>
+            <div class="f-input"><span>Evergreen Software LLC</span><span class="f-check">✓</span></div>
+          </div>
+          <div class="f-group">
+            <span class="f-label">Role / Job Title <span class="f-chip">JOB_TITLE</span></span>
+            <div class="f-input"><span>Product Manager</span><span class="f-check">✓</span></div>
+          </div>
+          <div class="f-group">
+            <span class="f-label">City &amp; State (ARIA Combobox) <span class="f-chip">CITY ·DISTRICT</span></span>
+            <div class="f-input"><span>Austin, TX &nbsp;·&nbsp; 78704</span><span class="f-check">✓</span></div>
+          </div>
+          <div class="f-group">
+            <span class="f-label">SSN / Tax ID <span class="f-chip">NATIONAL_ID · EIN</span></span>
+            <div class="f-input mono"><span>428-54-8192 &nbsp;·&nbsp; 47-8291045</span><span class="f-check">✓</span></div>
+          </div>
+          <div class="f-group">
+            <span class="f-label">Password <span class="f-chip">PASSWORD</span></span>
+            <div class="f-input mono"><span>••••••••••••••</span><span class="f-check">✓</span></div>
+          </div>
+          <div class="f-group">
+            <span class="f-label">Confirm Password <span class="f-chip">PASSWORD · Matched</span></span>
+            <div class="f-input mono"><span>•••••••••••••• (Identical)</span><span class="f-check">✓</span></div>
+          </div>
+          <div class="f-group span-2">
+            <span class="f-label">Rich Text Bio (contenteditable) <span class="f-chip">TEXT_AREA · Editable</span></span>
+            <div class="f-input"><span>We are interested in a team license for about twenty people. I am usually available on weekdays.</span><span class="f-check">✓</span></div>
+          </div>
+        </div>
+      `;
+
+      popupShell.innerHTML = `
+        <main class="app">
+          <header class="header">
+            <img class="header__logo" src="../../assets/icons/icon48.png" alt="" width="34" height="34">
+            <div class="header__brand">
+              <h1>LinguaFill</h1>
+              <p>Granular field &amp; behavior controls</p>
+            </div>
+            <span class="pill">🇺🇸 EN</span>
+          </header>
+
+          <section class="card">
+            <div class="card__head">
+              <h2>Fields</h2>
+              <div class="card__actions">
+                <span class="text-button">All</span>
+                <span class="text-button">None</span>
+              </div>
+            </div>
+            <div class="chips">
+              <span class="chip" aria-pressed="true"><span class="chip__icon">👤</span>First name</span>
+              <span class="chip" aria-pressed="true"><span class="chip__icon">👥</span>Last name</span>
+              <span class="chip" aria-pressed="true"><span class="chip__icon">✉️</span>Email</span>
+              <span class="chip" aria-pressed="true"><span class="chip__icon">📱</span>Phone</span>
+              <span class="chip" aria-pressed="true"><span class="chip__icon">🔑</span>Password</span>
+              <span class="chip" aria-pressed="true"><span class="chip__icon">🏠</span>Address</span>
+              <span class="chip" aria-pressed="true"><span class="chip__icon">🏙️</span>City</span>
+              <span class="chip" aria-pressed="true"><span class="chip__icon">🗺️</span>District</span>
+              <span class="chip" aria-pressed="true"><span class="chip__icon">🆔</span>National ID</span>
+              <span class="chip" aria-pressed="true"><span class="chip__icon">🧾</span>Tax ID</span>
+              <span class="chip" aria-pressed="true"><span class="chip__icon">🏦</span>IBAN</span>
+              <span class="chip" aria-pressed="true"><span class="chip__icon">💳</span>Card number</span>
+              <span class="chip" aria-pressed="true"><span class="chip__icon">☑️</span>Checkboxes</span>
+              <span class="chip" aria-pressed="true"><span class="chip__icon">🔘</span>Radio choices</span>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card__head"><h2>Behavior</h2></div>
+            <div class="switches">
+              <label class="switch">
+                <span class="switch__text">
+                  <span class="switch__title">Follow dependent fields</span>
+                  <span class="switch__desc">Re-scan after filling (e.g. City → District)</span>
+                </span>
+                <input type="checkbox" checked><span class="switch__track"></span>
+              </label>
+              <label class="switch">
+                <span class="switch__text">
+                  <span class="switch__title">Check consent boxes</span>
+                  <span class="switch__desc">Tick required / agreement checkboxes &amp; groups</span>
+                </span>
+                <input type="checkbox" checked><span class="switch__track"></span>
+              </label>
+              <label class="switch">
+                <span class="switch__text">
+                  <span class="switch__title">Rich editors &amp; ARIA widgets</span>
+                  <span class="switch__desc">Fill contenteditable and custom comboboxes</span>
+                </span>
+                <input type="checkbox" checked><span class="switch__track"></span>
+              </label>
+              <label class="switch">
+                <span class="switch__text">
+                  <span class="switch__title">Safe email domains</span>
+                  <span class="switch__desc">Use example.com instead of real providers</span>
+                </span>
+                <input type="checkbox" checked><span class="switch__track"></span>
+              </label>
+            </div>
+          </section>
+        </main>
+      `;
+    }
+  </script>
+</body>
+</html>
